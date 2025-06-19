@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PAYMENT DANZZ18</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url('https://files.catbox.moe/ifnsg7.png');
+            background-size: cover;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            color: white;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            backdrop-filter: blur(5px);
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            margin-top: 50px;
+        }
+
+        .welcome-btn {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 20px 0;
+            transition: all 0.3s;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .welcome-btn:hover {
+            transform: scale(1.05);
+            background-color: #333;
+        }
+
+        .payment-box {
+            display: none;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Gaya Tombol Payment */
+        .payment-btn {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .payment-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Warna Tombol */
+        .dana-btn { background: linear-gradient(135deg, #00a3e0, #0085cc); }
+        .gopay-btn { background: linear-gradient(135deg, #00aa13, #008c0f); }
+        .ovo-btn { background: linear-gradient(135deg, #4c2e92, #3a1d7a); }
+        .qris-btn { background: linear-gradient(135deg, #333333, #000000); }
+
+        /* Icon Payment */
+        .payment-icon {
+            width: 30px;
+            margin-right: 10px;
+        }
+
+        /* Modal Popup */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: rgba(0,0,0,0.9);
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+            border: 1px solid #333;
+        }
+
+        .close-btn {
+            background: #444;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        /* Contact Container */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .contact-btn {
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            color: white;
+            text-decoration: none;
+        }
+
+        .whatsapp-btn { background: linear-gradient(135deg, #25D366, #128C7E); }
+        .telegram-btn { background: linear-gradient(135deg, #0088cc, #006699); }
+        .channel-btn { 
+            background: linear-gradient(135deg, #7289da, #5a6dba);
+            grid-column: span 2;
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #aaa;
+        }
+
+        .sound-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>WEB PAYMENT DANZZ</h1>
+        <button id="welcomeBtn" class="welcome-btn">SELAMAT DATANG DI WEB PAYMENT DANZZ</button>
+
+        <div id="paymentBox" class="payment-box">
+            <h2>PAYMENT BY DANZZ18</h2>
+
+            <!-- Tombol-tombol Payment -->
+            <button class="payment-btn dana-btn" onclick="showPayment('DANA', '083802590830', 'DIKA')">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_DANA.svg" class="payment-icon">
+                DANA
+            </button>
+
+            <button class="payment-btn ovo-btn" onclick="showPayment('OVO', 'TIDAK TERSEDIA')">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/e/eb/Logo_ovo.svg" class="payment-icon">
+                OVO
+            </button>
+
+            <button class="payment-btn gopay-btn" onclick="showPayment('GOPAY', 'TIDAK TERSEDIA')">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/8/86/Gopay_logo.svg" class="payment-icon">
+                GOPAY
+            </button>
+
+            <button class="payment-btn qris-btn" onclick="showQRIS()">
+                <img src="https://qris.id/wp-content/uploads/2021/08/cropped-favicon-32x32.png" class="payment-icon">
+                QRIS
+            </button>
+
+            <!-- Contact Owner -->
+            <div class="contact-container">
+                <a href="https://wa.me/83802590830" class="contact-btn whatsapp-btn" target="_blank">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="payment-icon">
+                    WhatsApp
+                </a>
+                
+                <a href="https://t.me/danzzxz18" class="contact-btn telegram-btn" target="_blank">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" class="payment-icon">
+                    Telegram
+                </a>
+                
+                <a href="https://whatsapp.com/channel/0029VanqpdeIHphNgUAxZR03" class="contact-btn channel-btn" target="_blank">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="payment-icon">
+                    WhatsApp Channel
+                </a>
+            </div>
+
+            <div class="footer">
+                <p>TERIMAKASIH TELAH BERTRANSAKSI DENGAN DANZZ18</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Payment -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <h3 id="paymentMethod"></h3>
+            <p>Atas Nama: <strong id="accountName"></strong></p>
+            <p id="accountNumber" style="font-size: 20px; margin: 15px 0;"></p>
+            <button class="btn" onclick="copyToClipboard(document.getElementById('accountNumber').innerText)" 
+                    style="background:#00a3e0; color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer;">
+                Salin Nomor
+            </button>
+            <button class="close-btn" onclick="document.getElementById('paymentModal').style.display='none'">Tutup</button>
+        </div>
+    </div>
+
+    <!-- Modal QRIS -->
+    <div id="qrisModal" class="modal">
+        <div class="modal-content">
+            <h3>QRIS PAYMENT</h3>
+            <img src="https://files.catbox.moe/e28pps.png" style="width:100%; border-radius:10px; margin:15px 0;">
+            <button class="btn" onclick="downloadQRIS()" 
+                    style="background:#00a3e0; color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer;">
+                Download QR
+            </button>
+            <button class="close-btn" onclick="document.getElementById('qrisModal').style.display='none'">Tutup</button>
+        </div>
+    </div>
+
+    <!-- Sound Control -->
+    <div class="sound-control" onclick="toggleSound()">
+        <span id="soundIcon">🔊</span>
+    </div>
+
+    <!-- Audio -->
+    <audio id="bgSound" loop>
+        <source src="https://files.catbox.moe/lgayb8.m4a" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // Welcome Button Click
+        document.getElementById('welcomeBtn').addEventListener('click', function() {
+            this.style.display = 'none';
+            document.getElementById('paymentBox').style.display = 'block';
+            document.getElementById('bgSound').play();
+        });
+
+        // Tampilkan Payment Modal
+        function showPayment(method, number, name) {
+            document.getElementById('paymentMethod').innerText = method;
+            document.getElementById('accountNumber').innerText = number;
+            document.getElementById('accountName').innerText = name;
+            document.getElementById('paymentModal').style.display = 'flex';
+        }
+
+        // Tampilkan QRIS Modal
+        function showQRIS() {
+            document.getElementById('qrisModal').style.display = 'flex';
+        }
+
+        // Copy to Clipboard
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Berhasil disalin: ' + text);
+            });
+        }
+
+        // Download QRIS
+        function downloadQRIS() {
+            const link = document.createElement('a');
+            link.href = 'https://files.catbox.moe/e28pps.png';
+            link.download = 'QRIS_DANZZ18.png';
+            link.click();
+        }
+
+        // Toggle Sound
+        function toggleSound() {
+            const audio = document.getElementById('bgSound');
+            const icon = document.getElementById('soundIcon');
+            
+            if (audio.paused) {
+                audio.play();
+                icon.textContent = '🔊';
+            } else {
+                audio.pause();
+                icon.textContent = '🔇';
+            }
+        }
+
+        // Close modal jika klik di luar
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
